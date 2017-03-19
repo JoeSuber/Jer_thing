@@ -20,15 +20,15 @@ manynums = [
 ([1, 3, 2], True),
 ([1, 2, 1, 2], False),
 ([1, 4, 10, 4, 2], False),
-([10, 1, 2, 3, 4, 5],True),
-([1, 1, 1, 2, 3],False),
-([0, -2, 5, 6],True),
-([1, 2, 3, 4, 5, 3, 5, 6],False),
-([40, 50, 60, 10, 20, 30],False),
-([1, 1],True),
-([10, 1, 2, 3, 4, 5, 6, 1],False),
-([1, 2, 3, 4, 3, 6],True),
-([1, 2, 3, 4, 99, 5, 6],True)
+([10, 1, 2, 3, 4, 5], True),
+([1, 1, 1, 2, 3], False),
+([0, -2, 5, 6], True),
+([1, 2, 3, 4, 5, 3, 5, 6], False),
+([40, 50, 60, 10, 20, 30], False),
+([1, 1], True),
+([10, 1, 2, 3, 4, 5, 6, 1], False),
+([1, 2, 3, 4, 3, 6], True),
+([1, 2, 3, 4, 99, 5, 6], True)
 ]
 
 
@@ -38,7 +38,7 @@ def allgood(nums):
         if n > start:
             start = n
         else:
-            return pos - 1
+            return pos
     return len(nums)
 
 def checker(ns=None, fallson=1):
@@ -52,7 +52,10 @@ def checker(ns=None, fallson=1):
     position = allgood(ns)
 
     if position != len(ns):
-        ns.pop(position)
+        if ns[max(position - 1, 0)] >= ns[min(position + 1, len(ns) - 1)]:
+            ns.pop(max(position - 1, 0))
+        else:
+            ns.pop(position)
         return allgood(ns) == len(ns)
 
     return True
