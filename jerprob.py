@@ -32,6 +32,15 @@ manynums = [
 ]
 
 
+def allgood(nums):
+    start = nums[0] - 1
+    for pos, n in enumerate(nums):
+        if n > start:
+            start = n
+        else:
+            return pos - 1
+    return len(nums)
+
 def checker(ns=None, fallson=1):
     """
     ns is a list of integers.
@@ -40,16 +49,14 @@ def checker(ns=None, fallson=1):
     if ns is None:
         ns = [1, 0]
 
-    a, b, stumble = ns[0], ns[1], 0
-    for num in ns[1:]:
-        if a < b:
-            a, b = b, num
-        else:
-            stumble += 1
-            a, b = b, b
-        if stumble > 1:
-            return False
+    position = allgood(ns)
+
+    if position != len(ns):
+        ns.pop(position)
+        return allgood(ns) == len(ns)
+
     return True
+
 
 
 def test_checker(tests=manynums):
