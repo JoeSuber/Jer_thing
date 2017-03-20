@@ -33,6 +33,7 @@ manynums = [
 
 
 def allgood(nums):
+    # return the position of the fault in an ever-ascending list of int
     start = nums[0] - 1
     for pos, n in enumerate(nums):
         if n > start:
@@ -59,7 +60,6 @@ def checker(ns=None, fallson=1):
         return allgood(ns) == len(ns)
 
     return True
-
 
 
 def test_checker(tests=manynums):
